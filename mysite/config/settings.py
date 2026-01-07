@@ -120,3 +120,13 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static/",
 ]
+
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# 이메일 서버 구성
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "bydhorizon0@gmail.com"
+EMAIL_HOST_PASSWORD = ""
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
