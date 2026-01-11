@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -26,6 +27,7 @@ class Post(models.Model):
         choices=Status,
         default=Status.DRAFT,
     )
+    tags = TaggableManager()
 
     objects = models.Manager()  # 기본 관리자
     published = PublishedManager()  # 커스텀 관리자
