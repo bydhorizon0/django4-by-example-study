@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models.aggregates import Count
@@ -7,7 +8,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from taggit.models import Tag
 
-from blog.forms import EmailForm, CommentForm
+from blog.forms import EmailForm, CommentForm, SearchForm
 from blog.models import Post
 
 
@@ -90,4 +91,22 @@ def post_comment(request: HttpRequest, post_id: int):
         comment.save()
     return render(
         request, "blog/post/comment.html", {"comment": comment, "post": post, "form": form}
+    )
+
+
+def post_search(request: HttpRequest):
+    form = SearchForm()
+    query = None
+    results = []
+
+    if "query" in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data["query"]
+            results = Post.published.annotate(search=SearchVector("title", "content")).filter(
+                search=query
+            )
+
+    return render(
+        request, "blog/post/search.html", {"form": form, "query": query, "results": results}
     )
