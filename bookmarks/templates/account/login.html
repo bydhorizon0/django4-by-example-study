@@ -11,7 +11,10 @@
             Please try again.
         </p>
     {% else %}
-        Please, use the following form to log-in:
+        <p>
+            아직 계정이 없으신가요?
+            <a href="{% url 'register' %}">회원가입하기</a>
+        </p>
     {% endif %}
     <p>Please, use the following form to log-in</p>
 

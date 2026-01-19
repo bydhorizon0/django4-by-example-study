@@ -44,4 +44,6 @@ urlpatterns = [
     # django.contrib.auth.urls 는 위의 코드를 전부 포함한다.
     path("", include("django.contrib.auth.urls")),
     path("", views.dashboard, name="dashboard"),
+    path("register/", views.register, name="register"),
+    path("edit/", views.edit, name="edit"),
 ]
